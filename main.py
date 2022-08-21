@@ -1,54 +1,22 @@
 import random
 from player import Player
 from enemy import Enemy
-
-player_hp = 100
-
-def game_info(player_hp,enemy_hp):
-    str_player_hp = "player HP : "
-    str_enemy_hp = "enemy HP : "
-    
-    for i in range(player_hp):
-        str_player_hp += "]"
-
-    for i in range(enemy_hp):
-        str_enemy_hp += "]"
-
-    print(str_player_hp)
-    print(str_enemy_hp)
-
-##############################################
-
-margin = 20
+from manager import *
+import subprocess
 
 player = Player("computer",100,10)
-enemy = Enemy("ホイミスライム",30,10)
 
-print(f"{enemy.name}が現れた\n")
-print(f"{enemy.name}はいきなり襲いかかってきた\n")
+enemy = Enemy("ホイミスライム Lv.5",30,10)
+enemy1 = Enemy("ホイミスライム Lv.20",80,16)
+enemy2 = Enemy("ホイミスライム Lv.50",100,30)
+enemy3 = Enemy("くさった死体",30,20)
 
-print("-"*margin+"[< BATTLE START >]"+"-"*margin)
-print("\n"*1)
+battle(enemy,player)
+battle(enemy1,player)
+battle(enemy2,player)
+battle(enemy3,player)
 
-while enemy.hp>0 and player.hp>0 :
-    print("-"*margin+"[ enemy turn ]"+"-"*margin)
-    print("\n"*1)
-    enemy.enemy_action(player)
-    print("\n"*1)
-    print("-"*margin+"[ your turn ]"+"-"*margin)
-    print("\n"*1)
-    game_info(player.hp,enemy.hp)
-    print("\n"*2)
-    player.player_action(enemy)
-    
-    if enemy.hp<0 or player.hp<0:
-        print("-"*margin+"[< RESULT >]"+"-"*margin)
-        if enemy.hp<0:
-            print(f"{player.name}は{enemy.name}を倒した!\n") 
-        elif player.hp<0:
-            print(f"{player.name}は力尽きた...")
-    print("-"*margin+"> turn end <"+"-"*margin)
-    print("\n"*5)
+# subprocess.run("clear")
 
 # print("ホイミスライム")
 # print("メタルスライム")
