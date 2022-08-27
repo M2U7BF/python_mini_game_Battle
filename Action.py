@@ -21,7 +21,7 @@ class Action(object):
         print(self.after_action_message["guard"])
 
     def recovery(self,subject):
-        print(self.before_action_massage.recover)
+        print(self.before_action_massage["recover"])
         if subject.ability.magical_power == 0:
             print(f"{subject.name}は回復ができない\n")
         else:
