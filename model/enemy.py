@@ -1,6 +1,8 @@
 import random
 import math
 
+from Action import Action
+
 from .unique_charcter import UniqueCharacter
 
 
@@ -17,29 +19,30 @@ class Enemy(UniqueCharacter):
         print(f"{damage}のダメージ\n")
         player.ability.hp -= damage
 
-    def enemy_recovery(self):
-        if self.ability.magical_power == 0:
-            print(f"{self.name}は回復ができない\n")
-        else:
-            value = random.randrange(self.ability.magical_power)
-            print(f"{value}回復\n")
-
-            if self.ability.hp+value > self.max_hp:
-                self.ability.hp = self.max_hp
-            else:
-                self.ability.hp += value
-
     def enemy_action(self, player):
-        strs = [self.name+"の攻撃\n", self.name +
-                "は回復をした\n", self.name+"は様子をうかがっている\n"]
+        dict1 = {
+            "attack" : f"{self.name}の攻撃\n",
+            "guard" : f"{self.name}は攻撃に備えた\n",
+            "recover" : f"{self.name}は回復をした\n",
+            "flee" : f"{self.name}は逃げ出した\n",
+            "listening" : f"{self.name}は様子をうかがっている"
+        }
+
+        dict2 = {
+            "attacked" : "",
+            "guarded" : f"{self.name}は堅く身を守っている\n",
+            "recovered" : "",
+            "fled" : "逃げ切れた...\n",
+            "fled_missed" : "しかし、回り込まれた\n"
+        }
 
         action_num = random.randrange(self.quietness)
 
+        actions = Action(dict1,dict2)
+
         if action_num == 0:
-            print(strs[0])
-            self.enemy_attack(player)
+            actions.attack(self,player)
         elif action_num == 1:
-            print(strs[1])
-            self.enemy_recovery()
+            actions.recovery(self)
         else:
-            print(strs[2])
+            actions.listening()
