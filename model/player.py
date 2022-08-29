@@ -8,6 +8,7 @@ from model.unique_charcter import UniqueCharacter
 class Player(UniqueCharacter):
     def __init__(self, name, ability) -> None:
         super().__init__(name, ability)
+        self.exp = 0
 
     def player_action(self, enemy, manager):
         dict1 = {

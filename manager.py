@@ -54,6 +54,10 @@ def turn_end_process(enemy, player):
     player.is_guarding = 0
     enemy.is_guarding = 0
 
+def battle_result(enemy, player):
+    exp_earned = enemy.ability.power + enemy.ability.max_hp + enemy.ability.max_mp
+    print(f"{player.name}の獲得経験値 : {exp_earned}")
+    player.exp += exp_earned
 
 def battle(enemy, player):
     manager = Manager()
@@ -87,10 +91,12 @@ def battle(enemy, player):
 
         if enemy.ability.hp < 0 or player.ability.hp < 0:
             print("="*margin+"[< RESULT >]"+"="*margin)
-            if enemy.ability.hp < 0:
+            if enemy.ability.hp <= 0:
                 print(f"{player.name}は{enemy.name}を倒した!\n")
+                print("\n")
+                battle_result(enemy, player)
                 manager.battle_end = 1
-            elif player.ability.hp < 0:
+            elif player.ability.hp <= 0:
                 print(f"{player.name}は力尽きた...")
                 manager.battle_end = 1
             print("="*50)
